@@ -1,0 +1,34 @@
+import os
+import numpy as np
+import pydicom
+from PIL import Image
+
+newdir = #direcory containing each patient folders with his/her DICOM files
+
+#main converter function for DICOM files in input_folder to png in output_folder
+
+def cnvrtr(input_folder, output_folder):
+	os.makedirs(output_folder, exist_ok=True)
+	for root, dirs, files in os.walk(input_folder):
+		for file in files:
+			try:
+				if file.endswith('.dcm'):
+					dicom_path = os.path.join(root, file)
+					dicom_data = pydicom.dcmread(dicom_path)
+					pixel_array = dicom_data.pixel_array
+					image = Image.fromarray(pixel_array)
+					png_filename = os.path.splitext(file)[0] + '.png'
+					png_path = os.path.join(output_folder, png_filename)
+					image.save(png_path)
+			except Exception:
+				pass
+
+#each patient folder picker function
+
+def picker():
+	for item in os.listdir(newdir):
+		each_dicom_folder = os.path.join(newdir, item)
+		if __name__ == "__main__":
+			input_folder = each_dicom_folder
+			output_folder = os.path.join(z, "pics")
+			cnvrtr(x, y)
